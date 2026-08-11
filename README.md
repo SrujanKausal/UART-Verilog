@@ -53,16 +53,16 @@ A self-checking testbench is used to generate multiple 8-bit test values and aut
 
 ## Verification & Testbench Flow
 Expected Data
-↓
-UART TX
-↓
-Serial Line
-↓
-UART RX
-↓
-Received Data
-↓
-PASS / FAIL
+         ↓
+      UART TX
+         ↓
+    Serial Line
+         ↓
+      UART RX
+         ↓
+    Received Data
+         ↓
+    PASS / FAIL
 The top-level testbench (`uart_top_tb.v`) executes 20 randomized data transmissions. Handshaking with `busy` ensures clean transmission cycles without timing collisions.
 
 ### Sample Console Output
@@ -72,6 +72,7 @@ TEST 2 PASS --- sent=81 received=81
 ...
 TEST 20 PASS --- sent=77 received=77
 $finish called at time : 10390035 ns
+Repository Structure
 UART-Verilog/
 │
 ├── RTL/
