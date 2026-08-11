@@ -25,7 +25,7 @@ A self-checking testbench is used to generate multiple 8-bit test values and aut
 
 ## Design Architecture
 
-```text
+
                     +------------------+
                     |  Baud Generator  |
                     +--------+---------+
@@ -46,6 +46,7 @@ A self-checking testbench is used to generate multiple 8-bit test values and aut
                       +-------------+
                       |   UART Top  |
                       +-------------+
+
 UART Frame Format
       Start        8 Data Bits          Stop
         |       LSB              MSB      |
@@ -53,6 +54,7 @@ UART Frame Format
        +---+----+----+----+----+----+----+----+----+---+
        | 0 | D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | 1 |
        +---+----+----+----+----+----+----+----+----+---+
+
 RTL Modules
 baud_gen.v
 
