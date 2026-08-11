@@ -18,41 +18,46 @@ A self-checking testbench is used to generate multiple 8-bit test values and aut
 ---
 
 ## Design Architecture
-                     +------------------+
-                     |  Baud Generator  |
-                     +--------+---------+
-                              |
-                          baud_tick
-                              |
-                +-------------+-------------+
-                |                           |
-                v                           v
-          +-----------+               +-----------+
-          |  UART TX  |      TX       |  UART RX  |
-          |           +-------------->|           |
-          +-----------+               +-----------+
-                |                           |
-                +-------------+-------------+
-                              |
-                              v
-                       +-------------+
-                       |  UART Top   |
-                       +-------------+
+
+```text
+                         +------------------+
+                         |  Baud Generator  |
+                         +--------+---------+
+                                  |
+                              baud_tick
+                                  |
+                    +-------------+-------------+
+                    |                           |
+                    v                           v
+              +-----------+               +-----------+
+              |  UART TX  |      TX       |  UART RX  |
+              |           +-------------->|           |
+              +-----------+               +-----------+
+                    |                           |
+                    +-------------+-------------+
+                                  |
+                                  v
+                           +-------------+
+                           |  UART Top   |
+                           +-------------+
+
+```
+
 ---
 
 ## RTL Modules
 
 * **`baud_gen.v`**: Generates the sampling tick pulse (`baud_tick`) used by the UART transmitter and receiver based on the input clock frequency.
-* **`uart_tx.v`**: Implements the transmitter state machine:
-  $$\text{IDLE} \longrightarrow \text{START} \longrightarrow \text{DATA} \longrightarrow \text{STOP} \longrightarrow \text{IDLE}$$
-  Handles start bit assertion, LSB-first data serialization, stop bit timing, and driving the `busy` signal.
+* **`uart_tx.v`**: Implements the transmitter state machine (`IDLE` $\longrightarrow$ `START` $\longrightarrow$ `DATA` $\longrightarrow$ `STOP` $\longrightarrow$ `IDLE`). Handles start bit assertion, LSB-first data serialization, stop bit timing, and driving the `busy` signal.
 * **`uart_rx.v`**: Implements the receiver state machine. Detects start bits, mid-samples incoming serial data, and reconstructs the byte. Asserts `data_valid` when a byte is ready.
 * **`uart_top.v`**: Top-level module connecting `baud_gen`, `uart_tx`, and `uart_rx` in a loopback setup.
 
 ---
 
 ## Verification & Testbench Flow
-Expected Data
+
+```text
+   Expected Data
          ↓
       UART TX
          ↓
@@ -63,16 +68,27 @@ Expected Data
     Received Data
          ↓
     PASS / FAIL
+
+```
+
 The top-level testbench (`uart_top_tb.v`) executes 20 randomized data transmissions. Handshaking with `busy` ensures clean transmission cycles without timing collisions.
 
 ### Sample Console Output
+
 ```text
 TEST 1 PASS --- sent=24 received=24
 TEST 2 PASS --- sent=81 received=81
 ...
 TEST 20 PASS --- sent=77 received=77
 $finish called at time : 10390035 ns
-Repository Structure
+
+```
+
+---
+
+## Repository Structure
+
+```text
 UART-Verilog/
 │
 ├── RTL/
@@ -90,28 +106,40 @@ UART-Verilog/
 ├── .gitignore
 ├── UART.xpr
 └── README.md
+
+```
+
 ---
 
 ## Tools Used
-HDL Language: Verilog-2001
 
-EDA Tool: AMD / Xilinx Vivado (2025.2)
+* **HDL Language**: Verilog-2001
+* **EDA Tool**: AMD / Xilinx Vivado (2025.2)
+* **Simulator**: Vivado Simulator (XSim)
+* **Version Control**: Git / GitHub
 
-Simulator: Vivado Simulator (XSim)
+---
 
-Version Control: Git / GitHub
+## How to Run
 
-How to Run
-Clone the repository:
-
-Bash
+1. Clone the repository:
+```bash
 git clone [https://github.com/](https://github.com/)<your-username>/UART-Verilog.git
-Open UART.xpr in AMD Vivado.
 
-In the Sources pane, set uart_top_tb as the simulation top module.
+```
 
-Click Run Simulation -> Run Behavioral Simulation.
 
-In the Tcl Console, execute:
-Tcl
-run all                      
+2. Open `UART.xpr` in AMD Vivado.
+3. In the **Sources** pane, set `uart_top_tb` as the simulation top module.
+4. Click **Run Simulation** $\rightarrow$ **Run Behavioral Simulation**.
+5. In the Tcl Console, execute:
+```tcl
+run all
+
+```
+
+
+
+```
+
+```
