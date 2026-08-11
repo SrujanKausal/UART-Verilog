@@ -1,8 +1,8 @@
-UART-Verilog
+# UART-Verilog
 
 An 8-bit UART (Universal Asynchronous Receiver/Transmitter) implemented using Verilog HDL, featuring a baud-rate generator, transmitter, receiver, top-level integration, and simulation-based verification.
 
-Overview
+## Overview
 
 This project implements an 8-bit UART communication system using Verilog HDL.
 
@@ -12,16 +12,20 @@ The design was developed and verified using AMD Vivado behavioral simulation.
 
 A self-checking testbench is used to generate multiple 8-bit test values and automatically compare the received data with the expected transmitted data.
 
-Features
-8-Bit Data Frame: Standard 8-N-1 UART frame configuration consisting of 1 start bit, 8 data bits, and 1 stop bit.
-FSM-Based Architecture: Finite State Machine implementations for UART TX and RX.
-LSB-First Transmission: Data bits are transmitted starting with the least significant bit.
-Mid-Bit Sampling: The receiver validates the start bit near its center and samples subsequent data bits at their bit intervals.
-Self-Checking Testbench: Automated verification using randomized 8-bit vectors with $random.
-PASS/FAIL Reporting: Automatically compares transmitted and received data.
-Loopback Verification: UART TX output is internally connected to UART RX for end-to-end verification.
-Vivado Simulation: Verified using AMD Vivado behavioral simulation.
-Design Architecture
+## Features
+
+- **8-Bit Data Frame:** Standard 8-N-1 UART frame configuration consisting of 1 start bit, 8 data bits, and 1 stop bit.
+- **FSM-Based Architecture:** Finite State Machine implementations for UART TX and RX.
+- **LSB-First Transmission:** Data bits are transmitted starting with the least significant bit.
+- **Mid-Bit Sampling:** The receiver validates the start bit near its center and samples subsequent data bits at their bit intervals.
+- **Self-Checking Testbench:** Automated verification using randomized 8-bit vectors with `$random`.
+- **PASS/FAIL Reporting:** Automatically compares transmitted and received data.
+- **Loopback Verification:** UART TX output is internally connected to UART RX for end-to-end verification.
+- **Vivado Simulation:** Verified using AMD Vivado behavioral simulation.
+
+## Design Architecture
+
+```text
                     +------------------+
                     |  Baud Generator  |
                     +--------+---------+
@@ -36,7 +40,6 @@ Design Architecture
          |           +-------------->|           |
          +-----------+   loopback    +-----------+
                |                           |
-               |                           |
                +-------------+-------------+
                              |
                              v
@@ -47,9 +50,9 @@ UART Frame Format
       Start        8 Data Bits          Stop
         |       LSB              MSB      |
         v        v                 v       v
-       ┌───┬────┬────┬────┬────┬────┬────┬────┬────┬───┐
-       │ 0 │ D0 │ D1 │ D2 │ D3 │ D4 │ D5 │ D6 │ D7 │ 1 │
-       └───┴────┴────┴────┴────┴────┴────┴────┴────┴───┘
+       +---+----+----+----+----+----+----+----+----+---+
+       | 0 | D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | 1 |
+       +---+----+----+----+----+----+----+----+----+---+
 RTL Modules
 baud_gen.v
 
@@ -100,11 +103,11 @@ The project includes individual testbenches for the RTL modules and a top-level 
 Top-Level Verification Flow
 Generate Random 8-bit Data
           ↓
-     UART TX
+       UART TX
           ↓
    Serial Loopback
           ↓
-     UART RX
+       UART RX
           ↓
    Received Data
           ↓
@@ -118,6 +121,7 @@ For each test:
 
 Generate a random 8-bit value.
 Apply the value to the UART transmitter.
+Wait for the transmitter to be ready.
 Start the transmission.
 Wait for the receiver to indicate valid data.
 Compare the received value with the expected value.
@@ -156,14 +160,26 @@ Simulator: Vivado Simulator (XSim)
 Version Control: Git
 Repository: GitHub
 How to Run
-Clone the repository:
+1. Clone the Repository
 git clone https://github.com/SrujanKausal/UART-Verilog.git
-Open UART.xpr in AMD Vivado.
+2. Open the Vivado Project
+
+Open UART.xpr using AMD Vivado.
+
+3. Select the Testbench
+
 In the Vivado Sources pane, select uart_top_tb as the simulation top module.
+
+4. Run Behavioral Simulation
+
 Select:
+
 Run Simulation → Run Behavioral Simulation
-Run the simulation and observe the UART waveforms.
-Check the simulation console for the automated PASS/FAIL results.
+
+5. Observe the Results
+
+Observe the UART waveforms in the simulation window and check the simulation console for the automated PASS/FAIL results.
+
 Project Status
 
 Completed
