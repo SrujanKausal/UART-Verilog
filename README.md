@@ -86,31 +86,6 @@ $finish called at time : 10390035 ns
 
 ---
 
-## Repository Structure
-
-```text
-UART-Verilog/
-│
-├── RTL/
-│   ├── baud_gen.v
-│   ├── uart_rx.v
-│   ├── uart_top.v
-│   └── uart_tx.v
-│
-├── TB/
-│   ├── baud_gen_tb.v
-│   ├── uart_rx_tb.v
-│   ├── uart_top_tb.v
-│   └── uart_tx_tb.v
-│
-├── .gitignore
-├── UART.xpr
-└── README.md
-
-```
-
----
-
 ## Tools Used
 
 * **HDL Language**: Verilog-2001
@@ -119,20 +94,3 @@ UART-Verilog/
 * **Version Control**: Git / GitHub
 
 ---
-
-## How to Run
-
-1. Clone the repository:
-```bash
-git clone [https://github.com/](https://github.com/)<your-username>/UART-Verilog.git
-
-```
-
-
-2. Open `UART.xpr` in AMD Vivado.
-3. In the **Sources** pane, set `uart_top_tb` as the simulation top module.
-4. Click **Run Simulation** $\rightarrow$ **Run Behavioral Simulation**.
-5. In the Tcl Console, execute:
-```tcl
-run all
-```
