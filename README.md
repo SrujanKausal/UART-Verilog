@@ -135,11 +135,4 @@ git clone [https://github.com/](https://github.com/)<your-username>/UART-Verilog
 5. In the Tcl Console, execute:
 ```tcl
 run all
-
-```
-
-
-
-```
-
 ```
