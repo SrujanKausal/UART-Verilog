@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-
+// for the generation of baud_tick
 module baud_gen(input clk,rst,output reg baud_tick);
 reg [12:0]baud_count;
 localparam baud_count_max = 5207;
